@@ -1,0 +1,25 @@
+.drop-zone__container {
+  height: 100%;
+  text-align: center;
+  cursor: pointer;
+  display: grid;
+  grid-gap: 0;
+  grid-template-rows: 80px 23px 30px;
+  align-content: center;
+  justify-content: center;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -o-user-select: none;
+}
+
+.drop-zone__container > img {
+  margin: auto;
+  transform: rotate(180deg);
+}
+
+.drop-zone__container:active {
+  opacity: 0.5;
+  transition: all 0.3s;
+}

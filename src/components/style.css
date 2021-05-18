@@ -8,3 +8,12 @@
   margin-top: 20vh;
   border-radius: 6px;
 }
+
+.main-container {
+  display: flex;
+}
+
+.uploader-content {
+  width: 100%;
+  padding: 10px;
+}
