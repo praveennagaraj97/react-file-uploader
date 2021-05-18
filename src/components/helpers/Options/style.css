@@ -1,0 +1,23 @@
+.left-nav-tab {
+  width: 60px;
+  background-color: rgba(0, 0, 0, 0.487);
+  height: 92%;
+  border-radius: 0 0 0 6px;
+}
+
+.left-nav-tab > ul {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.left-nav-tab > ul li {
+  list-style: none;
+  margin-top: 17px;
+  cursor: pointer;
+}
+
+.left-nav-tab > ul li.active {
+  transition: all 0.3s;
+  transform: scale(1.3);
+}
