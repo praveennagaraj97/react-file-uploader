@@ -12,29 +12,33 @@ interface UploadOptionsState {
   selectedOption: UploadOptionsEnum;
 }
 
+interface UploadOptionsProps {
+  optionService: OptionService;
+}
+
 export default class UploadOptions extends PureComponent<
-  any,
+  UploadOptionsProps,
   UploadOptionsState
 > {
   selectedOptionSub$!: Subscription;
 
-  constructor(props: any, private optionsService: OptionService) {
+  constructor(props: UploadOptionsProps) {
     super(props);
     this.state = {
       selectedOption: UploadOptionsEnum.LOCAL,
     };
-
-    this.optionsService = new OptionService();
   }
 
   componentDidMount() {
-    this.selectedOptionSub$ = this.optionsService.selectedState$.subscribe({
-      next: (selectedOption) => {
-        this.setState({
-          selectedOption: selectedOption,
-        });
-      },
-    });
+    this.selectedOptionSub$ = this.props.optionService.selectedState$.subscribe(
+      {
+        next: (selectedOption) => {
+          this.setState({
+            selectedOption,
+          });
+        },
+      }
+    );
   }
 
   componentWillUnmount() {
@@ -52,7 +56,7 @@ export default class UploadOptions extends PureComponent<
           <li
             className={this.activeClassSetter(UploadOptionsEnum.LOCAL)}
             onClick={() => {
-              this.optionsService.setOption = UploadOptionsEnum.LOCAL;
+              this.props.optionService.setOption = UploadOptionsEnum.LOCAL;
             }}
           >
             <img src={folderICO} alt="folder_ico" />
@@ -60,7 +64,7 @@ export default class UploadOptions extends PureComponent<
           <li
             className={this.activeClassSetter(UploadOptionsEnum.LINK)}
             onClick={() => {
-              this.optionsService.setOption = UploadOptionsEnum.LINK;
+              this.props.optionService.setOption = UploadOptionsEnum.LINK;
             }}
           >
             <img src={linkICO} alt="folder_ico" />
