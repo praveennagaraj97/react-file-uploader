@@ -52,14 +52,14 @@ export default class UploadOptions extends PureComponent<
   render() {
     return (
       <div className="left-nav-tab">
-        <ul>
+        <ul draggable={false}>
           <li
             className={this.activeClassSetter(UploadOptionsEnum.LOCAL)}
             onClick={() => {
               this.props.optionService.setOption = UploadOptionsEnum.LOCAL;
             }}
           >
-            <img src={folderICO} alt="folder_ico" />
+            <img src={folderICO} alt="folder_ico" draggable={false} />
           </li>
           <li
             className={this.activeClassSetter(UploadOptionsEnum.LINK)}
@@ -67,7 +67,7 @@ export default class UploadOptions extends PureComponent<
               this.props.optionService.setOption = UploadOptionsEnum.LINK;
             }}
           >
-            <img src={linkICO} alt="folder_ico" />
+            <img src={linkICO} alt="folder_ico" draggable={false} />
           </li>
         </ul>
       </div>

@@ -7,11 +7,6 @@
   grid-template-rows: 80px 23px 30px;
   align-content: center;
   justify-content: center;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -o-user-select: none;
 }
 
 .drop-zone__container > img {
