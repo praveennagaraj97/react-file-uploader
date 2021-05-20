@@ -1,8 +1,6 @@
 import { DragEvent, useEffect, useState } from 'react';
-
-import { FireStoreService } from '../../../services/FireStoreServices';
-
 import fileIcon from '../../../assets/icons/file.png';
+import { FireStoreService } from '../../../services/FireStoreServices';
 import './style.css';
 
 interface DropZoneProps {
@@ -48,13 +46,16 @@ export default function DropZone({
   function handleSingleFile(file: File) {
     isdataUploading(true);
     getFileDetails(file);
-    fireStoreInstance?.singleFileUploader(file).subscribe({
+    const subs$ = fireStoreInstance?.singleFileUploader(file).subscribe({
       next: (percent) => {
         console.log(`Uploaded`, percent);
         updateUploadedPercentage(percent);
       },
       error: (err) => {
         isdataUploading(false);
+      },
+      complete() {
+        subs$?.unsubscribe();
       },
     });
   }

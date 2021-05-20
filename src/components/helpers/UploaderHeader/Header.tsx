@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
+import { Subscription } from 'rxjs';
 import { UploadOptions } from '../../../@types/enum';
-import { OptionService } from '../../../services/OptionService';
-
 import folderICO from '../../../assets/icons/folder.png';
 import linkICO from '../../../assets/icons/link.png';
-
+import { OptionService } from '../../../services/OptionService';
 import './style.css';
 
 interface HeaderProps {
@@ -28,13 +27,23 @@ export default function Header({ selectedOption }: HeaderProps) {
   }
 
   useEffect(() => {
-    const { selectedState$ } = selectedOption;
+    let isCancelled = false;
 
-    selectedState$.subscribe({
-      next: (value) => {
-        setCurrentOption(value);
-      },
-    });
+    let subs$: Subscription;
+
+    if (!isCancelled) {
+      const { selectedState$ } = selectedOption;
+      subs$ = selectedState$.subscribe({
+        next: (value) => {
+          setCurrentOption(value);
+        },
+      });
+    }
+
+    return () => {
+      isCancelled = true;
+      subs$.unsubscribe();
+    };
   }, [selectedOption]);
 
   return (
