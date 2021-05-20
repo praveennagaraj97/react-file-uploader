@@ -20,9 +20,6 @@ export class FireStoreService {
         next: (snapshot) => {
           const completedPercent =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-
-          console.log(completedPercent);
-
           subscriber.next(completedPercent);
         },
         error: (storageError) => {

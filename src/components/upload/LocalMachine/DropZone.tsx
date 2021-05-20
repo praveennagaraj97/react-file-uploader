@@ -5,8 +5,15 @@ import { FireStoreService } from '../../services/FireStoreServices';
 import fileIcon from '../../../assets/icons/file.png';
 import './style.css';
 
-export default function DropZone() {
-  // const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
+interface DropZoneProps {
+  isdataUploading: (state: boolean) => void;
+  updateUploadedPercentage: (percent: number) => void;
+}
+
+export default function DropZone({
+  isdataUploading,
+  updateUploadedPercentage,
+}: DropZoneProps) {
   const [fireStoreInstance, setFireStoreInstance] =
     useState<FireStoreService>();
 
@@ -37,9 +44,15 @@ export default function DropZone() {
   }
 
   function handleSingleFile(file: File) {
+    isdataUploading(true);
+
     fireStoreInstance?.singleFileUploader(file).subscribe({
       next: (percent) => {
-        // console.log(`Uploaded`, percent);
+        console.log(`Uploaded`, percent);
+        updateUploadedPercentage(percent);
+      },
+      error: (err) => {
+        isdataUploading(false);
       },
     });
   }
