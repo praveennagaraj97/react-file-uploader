@@ -61,7 +61,17 @@ export default function DropZone({
   }
 
   function handleMultipleFiles(files: FileList) {
-    console.log(files);
+    fireStoreInstance?.multipleFilesUploader(files).subscribe({
+      next: (val) => {
+        val.forEach((observable) => {
+          observable.subscribe({
+            complete() {
+              console.log('completed');
+            },
+          });
+        });
+      },
+    });
   }
 
   return (
