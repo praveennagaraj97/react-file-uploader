@@ -1,10 +1,20 @@
-import { DragEvent } from 'react';
-import fileIcon from '../../../assets/icons/file.png';
+import { DragEvent, useEffect, useState } from 'react';
 
+import { FireStoreService } from '../../services/FireStoreServices';
+
+import fileIcon from '../../../assets/icons/file.png';
 import './style.css';
 
 export default function DropZone() {
   // const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
+  const [fireStoreInstance, setFireStoreInstance] =
+    useState<FireStoreService>();
+
+  useEffect(() => {
+    const fireStoreServiceInstance = new FireStoreService();
+
+    setFireStoreInstance(fireStoreServiceInstance);
+  }, [setFireStoreInstance]);
 
   function stopPropogation(e: DragEvent) {
     e.stopPropagation();
@@ -16,13 +26,26 @@ export default function DropZone() {
 
     const { files } = e.dataTransfer;
 
-    if (files.length && files.length === 1) {
+    if (!files.length) {
+      return;
+    }
+    if (files.length === 1) {
       handleSingleFile(files[0]);
+    } else {
+      handleMultipleFiles(files);
     }
   }
 
   function handleSingleFile(file: File) {
-    console.log(file);
+    fireStoreInstance?.singleFileUploader(file).subscribe({
+      next: (percent) => {
+        // console.log(`Uploaded`, percent);
+      },
+    });
+  }
+
+  function handleMultipleFiles(files: FileList) {
+    console.log(files);
   }
 
   return (
