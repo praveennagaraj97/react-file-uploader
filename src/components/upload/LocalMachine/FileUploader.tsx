@@ -6,6 +6,7 @@ import { UploadProgress } from '../../shared/UploadProgress/UploadProgress';
 interface FileUploaderState {
   isUploading: boolean;
   uploadPercent: number;
+  uploadingFile: File | null;
 }
 
 export default class FileUploader extends Component<{}, FileUploaderState> {
@@ -14,6 +15,7 @@ export default class FileUploader extends Component<{}, FileUploaderState> {
     this.state = {
       isUploading: false,
       uploadPercent: 0,
+      uploadingFile: null,
     };
   }
 
@@ -30,15 +32,29 @@ export default class FileUploader extends Component<{}, FileUploaderState> {
     });
   };
 
-  set getFileDetails(file: File) {
-    console.log(file);
-  }
+  getFileDetails = (file: File) => {
+    this.setState({
+      uploadingFile: file,
+    });
+  };
 
   render() {
     if (this.state.isUploading) {
       return (
         <UploadProgress uploadedPercent={this.state.uploadPercent}>
-          <p>Last of Us</p>
+          <div className="current-upload-stat">
+            {Math.floor(this.state.uploadPercent) === 100 ? (
+              <p>Uploaded</p>
+            ) : (
+              <>
+                <p>
+                  {(this.state.uploadingFile?.name.slice(0, 90) || 'file') +
+                    '...'}
+                </p>
+                <p>{`${Math.floor(this.state.uploadPercent)}%`}</p>
+              </>
+            )}
+          </div>
         </UploadProgress>
       );
     }
@@ -47,6 +63,7 @@ export default class FileUploader extends Component<{}, FileUploaderState> {
       <DropZone
         isdataUploading={this.isdataUploading}
         updateUploadedPercentage={this.updateUploadedPercentage}
+        getFileDetails={this.getFileDetails}
       />
     );
   }

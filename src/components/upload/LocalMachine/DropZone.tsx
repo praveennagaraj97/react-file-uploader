@@ -8,11 +8,13 @@ import './style.css';
 interface DropZoneProps {
   isdataUploading: (state: boolean) => void;
   updateUploadedPercentage: (percent: number) => void;
+  getFileDetails: (file: File) => void;
 }
 
 export default function DropZone({
   isdataUploading,
   updateUploadedPercentage,
+  getFileDetails,
 }: DropZoneProps) {
   const [fireStoreInstance, setFireStoreInstance] =
     useState<FireStoreService>();
@@ -45,7 +47,7 @@ export default function DropZone({
 
   function handleSingleFile(file: File) {
     isdataUploading(true);
-
+    getFileDetails(file);
     fireStoreInstance?.singleFileUploader(file).subscribe({
       next: (percent) => {
         console.log(`Uploaded`, percent);

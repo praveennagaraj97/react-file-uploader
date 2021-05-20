@@ -18,3 +18,8 @@
   opacity: 0.5;
   transition: all 0.3s;
 }
+
+.current-upload-stat {
+  display: flex;
+  justify-content: space-between;
+}
