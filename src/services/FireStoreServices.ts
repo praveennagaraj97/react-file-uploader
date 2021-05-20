@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import { Observable } from 'rxjs';
 
-import { fireStore } from '../../config/firebase';
+import { fireStore } from '../config/firebase';
 
 export class FireStoreService {
   private storage: firebase.storage.Reference;

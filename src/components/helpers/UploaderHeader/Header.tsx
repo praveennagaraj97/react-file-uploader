@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { UploadOptions } from '../../../@types/enum';
-import { OptionService } from '../../services/OptionService';
+import { OptionService } from '../../../services/OptionService';
 
 import folderICO from '../../../assets/icons/folder.png';
 import linkICO from '../../../assets/icons/link.png';

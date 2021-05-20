@@ -5,7 +5,7 @@ import './style.css';
 import folderICO from '../../../assets/icons/folder.png';
 import linkICO from '../../../assets/icons/link.png';
 import { UploadOptions as UploadOptionsEnum } from '../../../@types/enum';
-import { OptionService } from '../../services/OptionService';
+import { OptionService } from '../../../services/OptionService';
 import { Subscription } from 'rxjs';
 
 interface UploadOptionsState {

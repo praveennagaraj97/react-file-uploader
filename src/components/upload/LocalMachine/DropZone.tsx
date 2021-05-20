@@ -1,6 +1,6 @@
 import { DragEvent, useEffect, useState } from 'react';
 
-import { FireStoreService } from '../../services/FireStoreServices';
+import { FireStoreService } from '../../../services/FireStoreServices';
 
 import fileIcon from '../../../assets/icons/file.png';
 import './style.css';

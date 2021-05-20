@@ -1,5 +1,5 @@
 import { BehaviorSubject } from 'rxjs';
-import { UploadOptions } from '../../@types/enum';
+import { UploadOptions } from '../@types/enum';
 
 export class OptionService {
   private currentOption$ = new BehaviorSubject(UploadOptions.LOCAL);
