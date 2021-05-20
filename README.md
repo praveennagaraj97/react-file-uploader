@@ -1,5 +1,7 @@
-<h4>File uploader</h4>
+<h3>File uploader</h3>
 
-<img src="./.github/example/default.png" />
+<h6>Single file Upload</h6>
 
-<img src="./.github/example/uploading-ex.png" />
+|      Single file Upload(D&D)       |                Progress                 |
+| :--------------------------------: | :-------------------------------------: |
+| ![](./.github/example/default.png) | ![](./.github/example/uploading-ex.png) |
