@@ -5,3 +5,14 @@
 |                D&D                 |                Progress                 |
 | :--------------------------------: | :-------------------------------------: |
 | ![](./.github/example/default.png) | ![](./.github/example/uploading-ex.png) |
+
+|                Multiple Files Upload                 |        Local machine example         |
+| :--------------------------------------------------: | :----------------------------------: |
+| ![](./.github/example/multipleFilesUploadScreen.png) | ![](./.github/example/examplevt.gif) |
+
+```
+    Roadmap
+        - dropbox uploads
+        - links uploads
+        - google drive
+```
