@@ -1,7 +1,6 @@
 import { Component } from 'react';
-import DropZone from './DropZone';
-
 import { UploadProgress } from '../../shared/UploadProgress/UploadProgress';
+import DropZone from './DropZone';
 
 interface FileUploaderState {
   isUploading: boolean;
@@ -20,7 +19,6 @@ export default class FileUploader extends Component<{}, FileUploaderState> {
   }
 
   isdataUploading = (isUploading: boolean) => {
-    console.log(isUploading);
     this.setState({
       isUploading,
     });

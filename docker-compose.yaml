@@ -1,0 +1,20 @@
+version: '3'
+services:
+  fileuploader:
+    build: .
+    ports:
+      - '3000:3000'
+    volumes:
+      - /app/node_modules
+      - .:/app
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=development
+      - GENERATE_SOURCE_MAP=false
+      - REACT_APP_APIKEY= ${REACT_APP_APIKEY}
+      - REACT_APP_AUTHDOMAIN= ${REACT_APP_AUTHDOMAIN}
+      - REACT_APP_PROJECT_ID= ${REACT_APP_PROJECT_ID}
+      - REACT_APP_STORAGEBUCKET= ${REACT_APP_STORAGEBUCKET}
+      - REACT_APP_MESSAGESENDERID= ${REACT_APP_MESSAGESENDERID}
+      - REACT_APP_APPID= ${REACT_APP_APPID}

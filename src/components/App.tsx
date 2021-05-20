@@ -1,8 +1,8 @@
 import { PureComponent } from 'react';
 import { Subscription } from 'rxjs';
+import { OptionService } from '../services/OptionService';
 import UploadOptions from './helpers/Options/UploadOptions';
 import Header from './helpers/UploaderHeader/Header';
-import { OptionService } from '../services/OptionService';
 import './style.css';
 import FileUploader from './upload/LocalMachine/FileUploader';
 
