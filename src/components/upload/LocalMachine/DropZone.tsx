@@ -1,18 +1,24 @@
 import { DragEvent, useEffect, useState } from 'react';
+import { delay, tap } from 'rxjs/operators';
 import fileIcon from '../../../assets/icons/file.png';
 import { FireStoreService } from '../../../services/FireStoreServices';
+import { MultipleFileState } from './FileUploader';
 import './style.css';
 
 interface DropZoneProps {
   isdataUploading: (state: boolean) => void;
   updateUploadedPercentage: (percent: number) => void;
   getFileDetails: (file: File) => void;
+  setIsMultipleUploads: (isMultiple: boolean) => void;
+  setMultipleFilesUploadState: (files: MultipleFileState[]) => void;
 }
 
 export default function DropZone({
   isdataUploading,
   updateUploadedPercentage,
   getFileDetails,
+  setIsMultipleUploads,
+  setMultipleFilesUploadState,
 }: DropZoneProps) {
   const [fireStoreInstance, setFireStoreInstance] =
     useState<FireStoreService>();
@@ -61,17 +67,28 @@ export default function DropZone({
   }
 
   function handleMultipleFiles(files: FileList) {
-    fireStoreInstance?.multipleFilesUploader(files).subscribe({
-      next: (val) => {
-        val.forEach((observable) => {
-          observable.subscribe({
-            complete() {
-              console.log('completed');
-            },
+    const uploadState: MultipleFileState[] = [];
+
+    fireStoreInstance
+      ?.multipleFilesUploader(files)
+      .pipe(
+        delay(500),
+        tap((_) => {
+          setIsMultipleUploads(true);
+        })
+      )
+      .subscribe({
+        next: (observer) => {
+          observer.forEach((uploads) => {
+            uploadState.push({
+              fileName: uploads.file.name,
+              uploadedPercentage: uploads.uploadState,
+            });
           });
-        });
-      },
-    });
+
+          setMultipleFilesUploadState(uploadState);
+        },
+      });
   }
 
   return (

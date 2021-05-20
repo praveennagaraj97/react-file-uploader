@@ -34,12 +34,15 @@ export class FireStoreService {
     return observer;
   }
 
-  multipleFilesUploader(files: FileList): Observable<Observable<number>[]> {
-    const observer = new Observable<Observable<number>[]>((subscriber) => {
-      const uploaderRef: Observable<number>[] = [];
+  multipleFilesUploader(files: FileList): Observable<UploadState[]> {
+    const observer = new Observable<UploadState[]>((subscriber) => {
+      const uploaderRef: { uploadState: Observable<number>; file: File }[] = [];
 
       for (let i = 0; i < files.length; i++) {
-        uploaderRef.push(this.singleFileUploader(files[i]));
+        uploaderRef.push({
+          file: files[i],
+          uploadState: this.singleFileUploader(files[i]),
+        });
       }
 
       subscriber.next(uploaderRef);
@@ -47,4 +50,9 @@ export class FireStoreService {
 
     return observer;
   }
+}
+
+interface UploadState {
+  uploadState: Observable<number>;
+  file: File;
 }
